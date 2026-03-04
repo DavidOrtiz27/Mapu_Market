@@ -1,0 +1,84 @@
+package com.mapu.market.persistence.entity;
+
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Table(name = "compras")
+public class Purchase {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_compra")
+    private Integer idCompra;
+
+    @Column(name = "id_cliente")
+    private Date idCliente;
+
+    private LocalDateTime fecha;
+
+    @Column(name = "medio_pago")
+    private String medioPago;
+
+    private String comentario;
+    private String estado;
+
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+    private Client client;
+
+    @OneToMany(mappedBy = "purchase")
+    private List<ProductPurchase> productPurchases;
+
+
+    public Integer getIdCompra() {
+        return idCompra;
+    }
+
+    public void setIdCompra(Integer idCompra) {
+        this.idCompra = idCompra;
+    }
+
+    public Date getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Date idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+}
